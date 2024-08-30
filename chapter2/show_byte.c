@@ -2,6 +2,22 @@
 #include<string.h>
 
 typedef unsigned char *byte_pointer;
+
+
+/* 2.13 
+int bis(int x, int y);
+int bic(int x, int y);
+
+int bool_or(int x, int y) {
+	int result = bis(x, y);
+	return result;
+}
+
+int bool_xor(int x, int y) {
+	int result = bis(bic(x, y), bic(y, x));
+	return result;
+} */
+
 // 2.10
 void inplace_swap(int *x, int *y) {
 	*y = *x ^ *y;
@@ -54,8 +70,35 @@ void test_show_bytes(int val) {
 }
 
 int main() {
-	int a[] = {1, 2, 3, 4, 5};
-	reverse_array(a, 5);
-	print_array(a, 5);
+
+	// 2.12 A
+	/* int x = 0x87654321; 
+	// int xl = x & 0x000000FF; 워드가 32비트인 환경에서만 적용됨
+	int xl = x & 0xFF;
+	
+	printf("%0.8x", xl);
+	printf("\n");
+
+	// 2.12 B [0x789ABC21]
+	// int xb = x ^ 0xFFFFFF00;
+	int xb = x ^ ~0xFF;
+	printf("%0.8X", xb);
+	printf("\n");
+
+	// 2.13 C [0x876543FF]
+	// int xc = x | 0x000000FF;
+	int xc = x | 0xFF;
+	printf("%0.8X", xc);
+	*/
+	short x = 12345;
+	short mx = -x;
+
+	show_bytes((byte_pointer) &x, sizeof(short));
+	show_bytes((byte_pointer) &mx, sizeof(short));
+
+	short v = -12345;
+	unsigned short uv = (unsigned short) v;
+	printf("v = %d, uv = %u\n", v, uv);
+
 	return 0;
 }
