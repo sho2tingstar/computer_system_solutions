@@ -3,6 +3,13 @@
 
 typedef unsigned char *byte_pointer;
 
+int fun1(unsigned word) {
+	return (int)((word << 24) >> 24);
+}
+
+int fun2(unsigned word) {
+	return ((int) word << 24) >> 24;
+}
 
 /* 2.13 
 int bis(int x, int y);
@@ -89,7 +96,7 @@ int main() {
 	// int xc = x | 0x000000FF;
 	int xc = x | 0xFF;
 	printf("%0.8X", xc);
-	*/
+	
 	short x = 12345;
 	short mx = -x;
 
@@ -99,6 +106,49 @@ int main() {
 	short v = -12345;
 	unsigned short uv = (unsigned short) v;
 	printf("v = %d, uv = %u\n", v, uv);
+
+	unsigned u = 4294967295u; //  UMax 
+	int 	 tu = (int) u;
+	printf("u = %u, tu = %d\n", u, tu);
+
+
+	int x = -1;
+	unsigned u = 2147483648;
+
+	printf("x = %u = %d\n", x, x);
+	printf("u = %u = %d\n", u, u);
+
+	
+	// -1 < 0U --> 0 Test
+	unsigned char result = -1 < 0U;
+	printf("result = %d\n", result);
+
+
+	short sx = -12345;
+	unsigned short usx = sx;
+	int x = sx;
+	unsigned ux = usx;
+
+	printf("sx	=	%d:\t", sx);
+	show_bytes((byte_pointer) &sx, sizeof(short));
+	printf("usx	=	%u:\t", usx);
+	show_bytes((byte_pointer) &usx, sizeof(unsigned short));
+
+	printf("x	=	%d:\t", x);
+	show_bytes((byte_pointer) &x, sizeof(int));
+	printf("ux	=	%u:\t", ux);
+	show_bytes((byte_pointer) &ux, sizeof(unsigned int));
+
+	*/
+
+	short sx = -12345;
+	unsigned uy = sx;
+	printf("uy	=	%u:\t", uy);
+	show_bytes((byte_pointer) &uy, sizeof(unsigned));
+
+	int result = fun2(0x000000C9);
+	printf("fun2(0x000000C9):\t");
+	show_bytes((byte_pointer) &result, sizeof(int));
 
 	return 0;
 }
