@@ -3,6 +3,41 @@
 
 typedef unsigned char *byte_pointer;
 
+
+/* Determine whether arguments can be added without overflow */
+/* 2.30 */
+int tadd_ok(int x, int y) {
+	int s = x + y;
+	if (x > 0 & y > 0 & s > 0)
+		return 1;
+	if (x < 0 & y < 0 & s < 0)
+		return 1;
+}
+
+/* 2.30 solution 
+int tadd_ok(int x, int y) {
+	int sum = x + y;
+	int neg_over = x < 0 && y < 0 && sum >= 0;
+	int pos_over = x > 0 && y > 0 && sum < 0;
+	return !neg_over && !pos_over;
+} */
+
+// 2.32
+int tsub_ok(int x, int y) {
+	if (y == TMin) {
+		return tadd_ok(x, -(y+1));
+	}
+}
+/* WARNING: This is buggy code */
+float sum_elements(float a[], int length) {
+	int i;
+	float result = 0;
+
+	for (i = 0; i <= length-1; i++)
+		result += a[i];
+	return result;
+}
+
 int fun1(unsigned word) {
 	return (int)((word << 24) >> 24);
 }
