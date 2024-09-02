@@ -3,6 +3,10 @@
 
 typedef unsigned char *byte_pointer;
 
+/* 2.42 */
+int div16(int x) {
+	return (x < 0 ? x + (1 << k) - 1 : x) >> k;
+}
 
 /* Determine whether arguments can be added without overflow */
 /* 2.30 */
