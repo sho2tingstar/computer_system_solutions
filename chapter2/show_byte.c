@@ -3,20 +3,20 @@
 
 typedef unsigned char *byte_pointer;
 
-/* 2.42 */
+/* 2.42 
 int div16(int x) {
 	return (x < 0 ? x + (1 << k) - 1 : x) >> k;
-}
+} */
 
 /* Determine whether arguments can be added without overflow */
-/* 2.30 */
+/* 2.30 
 int tadd_ok(int x, int y) {
 	int s = x + y;
 	if (x > 0 & y > 0 & s > 0)
 		return 1;
 	if (x < 0 & y < 0 & s < 0)
 		return 1;
-}
+} */
 
 /* 2.30 solution 
 int tadd_ok(int x, int y) {
@@ -26,12 +26,12 @@ int tadd_ok(int x, int y) {
 	return !neg_over && !pos_over;
 } */
 
-// 2.32
+/* 2.32
 int tsub_ok(int x, int y) {
 	if (y == TMin) {
 		return tadd_ok(x, -(y+1));
 	}
-}
+} */
 /* WARNING: This is buggy code */
 float sum_elements(float a[], int length) {
 	int i;
@@ -189,5 +189,16 @@ int main() {
 	printf("fun2(0x000000C9):\t");
 	show_bytes((byte_pointer) &result, sizeof(int));
 
+	int x = 0x80000000;
+	int nx = -x;
+	unsigned ux = x;
+
+	printf("%d\n", nx);
+	printf("true or false:\t%d", x == ux);
+
+	double d = 0x0000000000000001;
+	printf("d == (double)(float) d --> %d\n", d == (double)(float) 				d);	
+
+	printf("1.0/2 == 1/2.0 --> %d\n", 1.0/2 == 1/2.0);
 	return 0;
 }
